@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Custom Search</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+        .search-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 400px;
+            padding: 12px;
+            font-size: 18px;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none; /* hidden initially */
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container" id="searchBox">
+        <h1>My Custom Search</h1>
+        <input type="text" id="searchInput" placeholder="Enter a website URL (example: example.com)">
+        <button onclick="goToWebsite()">Go</button>
+    </div>
+
+    <iframe id="siteFrame"></iframe>
+
+    <script>
+        function goToWebsite() {
+            let input = document.getElementById('searchInput').value.trim();
+            
+            if (!input) return; // do nothing if empty
+            
+            // If the input doesn't start with http/https, add https by default
+            if (!input.startsWith('http://') && !input.startsWith('https://')) {
+                input = 'https://' + input;
+            }
+
+            // Hide search container
+            document.getElementById('searchBox').style.display = 'none';
+
+            // Show iframe in fullscreen
+            const iframe = document.getElementById('siteFrame');
+            iframe.style.display = 'block';
+            iframe.src = input;
+        }
+    </script>
+</body>
+</html>
